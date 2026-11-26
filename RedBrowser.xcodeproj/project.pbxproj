@@ -1,0 +1,227 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B10000000000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000011 /* AppDelegate.swift */; };
+		B10000000000000000000002 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* BrowserViewController.swift */; };
+		B10000000000000000000003 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* index.html */; };
+		B10000000000000000000004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* Assets.xcassets */; };
+		B10000000000000000000005 /* HomePageSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000018 /* HomePageSchemeHandler.swift */; };
+		B10000000000000000000006 /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* apple.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B10000000000000000000011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B10000000000000000000012 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		B10000000000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10000000000000000000014 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		B10000000000000000000015 /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
+		B10000000000000000000016 /* RedBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000000000000000000017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10000000000000000000018 /* HomePageSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageSchemeHandler.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B10000000000000000000024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B10000000000000000000031 = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000032 /* RedBrowser */,
+				B10000000000000000000033 /* web */,
+				B10000000000000000000034 /* images */,
+				B10000000000000000000035 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B10000000000000000000032 /* RedBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000011 /* AppDelegate.swift */,
+				B10000000000000000000012 /* BrowserViewController.swift */,
+				B10000000000000000000018 /* HomePageSchemeHandler.swift */,
+				B10000000000000000000017 /* Assets.xcassets */,
+				B10000000000000000000013 /* Info.plist */,
+			);
+			path = RedBrowser;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000033 /* web */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000014 /* index.html */,);
+			path = web;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000034 /* images */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000015 /* apple.png */,);
+			path = images;
+			sourceTree = "<group>";
+		};
+		B10000000000000000000035 /* Products */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000016 /* RedBrowser.app */,);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B10000000000000000000041 /* RedBrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B10000000000000000000061 /* Build configuration list for PBXNativeTarget "RedBrowser" */;
+			buildPhases = (
+				B10000000000000000000021 /* Sources */,
+				B10000000000000000000024 /* Frameworks */,
+				B10000000000000000000022 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = RedBrowser;
+			productName = RedBrowser;
+			productReference = B10000000000000000000016 /* RedBrowser.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B10000000000000000000051 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B10000000000000000000041 = {CreatedOnToolsVersion = 16.0; };
+				};
+			};
+			buildConfigurationList = B10000000000000000000062 /* Build configuration list for PBXProject "RedBrowser" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base,);
+			mainGroup = B10000000000000000000031;
+			productRefGroup = B10000000000000000000035 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (B10000000000000000000041 /* RedBrowser */,);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B10000000000000000000022 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000000000000000000003 /* index.html in Resources */,
+				B10000000000000000000004 /* Assets.xcassets in Resources */,
+				B10000000000000000000006 /* apple.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B10000000000000000000021 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000000000000000000001 /* AppDelegate.swift in Sources */,
+				B10000000000000000000002 /* BrowserViewController.swift in Sources */,
+				B10000000000000000000005 /* HomePageSchemeHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B10000000000000000000071 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B10000000000000000000072 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B10000000000000000000073 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RedBrowser/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redbrowser.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B10000000000000000000074 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RedBrowser/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redbrowser.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B10000000000000000000061 /* Build configuration list for PBXNativeTarget "RedBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (B10000000000000000000073 /* Debug */, B10000000000000000000074 /* Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B10000000000000000000062 /* Build configuration list for PBXProject "RedBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (B10000000000000000000071 /* Debug */, B10000000000000000000072 /* Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B10000000000000000000051 /* Project object */;
+}

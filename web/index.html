@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f4">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' file:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>Red Browser</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans CJK SC", "PingFang SC", sans-serif;
+      color: #24201d;
+      background: #f8f7f4;
+      --red: #a82b28;
+      --muted: #6d635c;
+      --surface: #fffcf8;
+      --line: #e8e1d9;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { color: inherit; cursor: pointer; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    h1, h2, p { margin: 0; }
+    [hidden] { display: none !important; }
+
+    .page {
+      max-width: 576px;
+      margin: 0 auto;
+      padding: 0 20px 24px;
+      padding-inline: clamp(16px, 5.1vw, 30px);
+    }
+
+    .masthead, .section-header, .store, .brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .masthead {
+      min-height: 72px;
+      justify-content: space-between;
+    }
+
+    .brand {
+      gap: 10px;
+      font-weight: 760;
+      font-size: 19px;
+      letter-spacing: -.055em;
+    }
+
+    .brand-icon {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: var(--red);
+    }
+
+    .brand-icon::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 1px solid #ffebe2;
+      border-radius: 50%;
+    }
+
+    .brand-icon::after, .compass-needle {
+      clip-path: polygon(50% 0, 100% 68%, 50% 100%, 0 68%);
+      transform: rotate(37deg);
+      background: linear-gradient(180deg, #fff7ec 0 68%, #f0a28a 68% 100%);
+    }
+
+    .brand-icon::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 15px;
+      left: 13px;
+      top: 9px;
+    }
+
+    .header-action {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--red);
+    }
+
+    .ribbon {
+      display: block;
+      background: currentColor;
+      width: 13px;
+      height: 16px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
+    }
+
+    .hero {
+      min-height: 190px;
+      isolation: isolate;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      padding: 23px 24px;
+      padding-inline: clamp(19px, 6vw, 32px);
+      border-radius: 24px;
+      background: #a82b28;
+      color: #fff8ef;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-size: clamp(29px, 8.5vw, 47px);
+      line-height: 1.2;
+      letter-spacing: -.06em;
+      font-weight: 800;
+    }
+
+    .compass {
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      right: 8px;
+      right: clamp(-10px, 2vw, 29px);
+      width: 136px;
+      height: 136px;
+      width: clamp(120px, 35vw, 162px);
+      height: clamp(120px, 35vw, 162px);
+      border: 1px solid #f6bfa477;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 0 15px #f6bfa425, 0 0 0 30px #f6bfa418, 0 0 0 51px #f6bfa411;
+    }
+
+    .compass::before, .compass::after {
+      content: "";
+      position: absolute;
+      inset: 9%;
+      border: 1px dashed #f6bfa477;
+      border-radius: 50%;
+    }
+
+    .compass::after {
+      inset: 23%;
+      border: 1px solid #f6bfa455;
+    }
+
+    .compass-needle {
+      position: absolute;
+      left: 37%;
+      top: 18%;
+      width: 26%;
+      height: 64%;
+    }
+
+    .compass-pin {
+      position: absolute;
+      inset: 46.5%;
+      z-index: 1;
+      background: var(--red);
+      border: 1px solid #fff7ec;
+      border-radius: 50%;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 58px;
+      margin-top: 14px;
+      padding: 5px 5px 5px 17px;
+      border: 1px solid #ded4cc;
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: 0 3px 8px #43201908;
+    }
+
+    .search:focus-within { border-color: var(--red); }
+
+    .magnifier {
+      width: 15px;
+      height: 15px;
+      flex: 0 0 15px;
+      border: 1.6px solid var(--muted);
+      border-radius: 50%;
+      position: relative;
+      margin-right: 3px;
+    }
+
+    .magnifier::after {
+      content: "";
+      position: absolute;
+      width: 7px;
+      height: 1.6px;
+      top: 11px;
+      left: 10px;
+      background: var(--muted);
+      transform: rotate(45deg);
+      transform-origin: left;
+    }
+
+    .search input {
+      min-width: 0;
+      width: 100%;
+      padding: 7px 0;
+      border: 0;
+      outline: 0;
+      color: inherit;
+      background: transparent;
+      font-size: 16px;
+    }
+
+    .search input::placeholder { color: #756961; opacity: 1; }
+
+    .primary {
+      flex: none;
+      min-height: 44px;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--red);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .error {
+      margin: 8px 0 0;
+      color: #942421;
+      font-size: 13px;
+    }
+
+    section { margin-top: 23px; }
+
+    .section-header {
+      min-height: 40px;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    h2 { font-size: 17px; letter-spacing: -.03em; }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-gap: 8px;
+      gap: clamp(5px, 2vw, 12px);
+    }
+
+    .tile {
+      min-height: 82px;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 7px;
+      padding: 6px 1px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      text-align: center;
+      font-size: 12px;
+      font-size: clamp(10px, 2.85vw, 13px);
+      font-weight: 650;
+    }
+
+    .tile-icon {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 750;
+    }
+
+    .wiki { background: #efe8dc; color: #5c4636; font-family: Georgia, serif; }
+    .github { background: #eae7ec; color: #3c3049; font-family: monospace; }
+    .maps { background: #e4ede1; color: #2e5944; }
+    .news { background: #f7e1d0; color: #8b351e; }
+
+    .text-button {
+      min-height: 44px;
+      padding: 0 2px 0 8px;
+      border: 0;
+      background: transparent;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .empty {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 58px;
+      gap: 11px;
+      padding: 8px 13px;
+      border: 1px dashed #ccbcb1;
+      border-radius: 14px;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .empty-icon {
+      display: grid;
+      place-items: center;
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      background: #f1e6df;
+      color: var(--red);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .bookmarks { padding: 0; margin: 0; list-style: none; }
+
+    .bookmark {
+      display: flex;
+      align-items: center;
+      min-height: 54px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .bookmark + .bookmark { margin-top: 7px; }
+
+    .bookmark a {
+      display: grid;
+      gap: 1px;
+      flex: 1;
+      min-width: 0;
+      padding: 8px 12px;
+    }
+
+    .bookmark a strong, .bookmark a small {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bookmark a strong { font-size: 14px; }
+    .bookmark a small { font-size: 12px; color: var(--muted); }
+    .remove { min-width: 44px; padding: 0; font-size: 20px; }
+
+    .store {
+      gap: 9px;
+      justify-content: space-between;
+      min-height: 55px;
+      margin-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .badge {
+      display: grid;
+      place-items: center;
+      width: 108px;
+      height: 34px;
+      overflow: hidden;
+      border-radius: 6px;
+    }
+
+    .badge img {
+      display: block;
+      width: 97px;
+      height: auto;
+    }
+
+    .badge.android {
+      border: 1px solid var(--line);
+      background: #fcfcfc;
+    }
+
+    .badge.android img { width: 108px; margin: -20px 0; }
+
+    dialog {
+      width: calc(100% - 32px);
+      max-width: 430px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      color: inherit;
+    }
+
+    dialog::backdrop { background: #28161370; }
+    dialog h2 { margin-bottom: 14px; font-size: 20px; }
+
+    .field {
+      display: grid;
+      gap: 5px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 10px;
+      border: 1px solid #ded4cc;
+      border-radius: 9px;
+      background: white;
+      color: inherit;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 15px; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      clip-path: inset(50%);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 340px) {
+      .hero { min-height: 165px; }
+      .compass { right: -18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="brand"><span class="brand-icon" aria-hidden="true"></span>Red Browser</div>
+      <button class="header-action" type="button" id="jump-bookmarks" aria-label="查看收藏">
+        <span class="ribbon" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="compass" aria-hidden="true">
+          <span class="compass-needle"></span>
+          <span class="compass-pin"></span>
+        </div>
+        <h1>浏览网页</h1>
+      </div>
+
+      <form class="search" id="search-form" role="search">
+        <span class="magnifier" aria-hidden="true"></span>
+        <input id="query" type="text" aria-label="搜索或输入网址" aria-describedby="search-error" placeholder="搜索或输入网址" enterkeyhint="go" autocapitalize="off" autocomplete="off" spellcheck="false" required>
+        <button class="primary" type="submit">前往</button>
+      </form>
+      <p class="error" id="search-error" role="status" hidden></p>
+
+      <section aria-labelledby="shortcuts-title">
+        <div class="section-header"><h2 id="shortcuts-title">快捷访问</h2></div>
+        <div class="tiles">
+          <a class="tile" href="https://zh.wikipedia.org/"><span class="tile-icon wiki" aria-hidden="true">W</span>维基百科</a>
+          <a class="tile" href="https://github.com/"><span class="tile-icon github" aria-hidden="true">&lt;&gt;</span>GitHub</a>
+          <a class="tile" href="https://www.openstreetmap.org/"><span class="tile-icon maps" aria-hidden="true">⌖</span>地图</a>
+          <a class="tile" href="https://news.ycombinator.com/"><span class="tile-icon news" aria-hidden="true">Y</span>技术新闻</a>
+        </div>
+      </section>
+
+      <section id="bookmarks-section" aria-labelledby="bookmarks-title">
+        <div class="section-header">
+          <h2 id="bookmarks-title" tabindex="-1">我的收藏</h2>
+          <button class="text-button" id="add-bookmark" type="button" hidden>＋ 添加</button>
+        </div>
+        <button class="empty" id="empty-bookmarks" type="button" hidden>
+          <span class="empty-icon" aria-hidden="true">＋</span>添加常用网站
+        </button>
+        <ul class="bookmarks" id="bookmarks"></ul>
+      </section>
+    </main>
+
+    <footer>
+      <a class="store" id="store-link" hidden>
+        <span>应用商店</span>
+        <span class="badge" id="store-badge"><img src="platform.png" alt=""></span>
+      </a>
+    </footer>
+  </div>
+
+  <dialog id="bookmark-dialog" aria-labelledby="dialog-title">
+    <form id="bookmark-form">
+      <h2 id="dialog-title">添加收藏</h2>
+      <label class="field">网址
+        <input id="bookmark-url" type="text" inputmode="url" placeholder="example.com" autocapitalize="off" autocomplete="off" spellcheck="false" required aria-describedby="bookmark-error">
+      </label>
+      <label class="field">名称（选填）
+        <input id="bookmark-name" type="text" maxlength="60" placeholder="网站名称">
+      </label>
+      <p class="error" id="bookmark-error" role="alert" hidden></p>
+      <div class="actions">
+        <button class="text-button" id="cancel-bookmark" type="button">取消</button>
+        <button class="primary" type="submit">保存</button>
+      </div>
+    </form>
+  </dialog>
+  <p class="sr-only" id="status" role="status"></p>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+    const storageKey = "red-browser-bookmarks";
+    const domainLike = /^(?:[^\s:/?#]+\.)+[^\s:/?#.]+(?::\d+)?(?:[/?#].*)?$/u;
+
+    function readWebAddress(value) {
+      if (!/^https:\/\//i.test(value) && !domainLike.test(value)) {
+        return null;
+      }
+
+      try {
+        const url = new URL(/^https:\/\//i.test(value) ? value : "https://" + value);
+        return url.hostname && !url.username && !url.password ? url : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function showError(id, message) {
+      const error = byId(id);
+      error.textContent = message;
+      error.hidden = !message;
+    }
+
+    byId("query").addEventListener("input", () => showError("search-error", ""));
+    byId("search-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = byId("query");
+      const value = query.value.trim();
+      if (!value) {
+        showError("search-error", "请输入关键词或网址。");
+        return;
+      }
+
+      const address = readWebAddress(value);
+      if (!address && (/^[a-z][a-z\d+.-]*:\/\//i.test(value) || /^https?:/i.test(value))) {
+        showError("search-error", "请输入有效的 HTTPS 网址。");
+        return;
+      }
+
+      const search = new URL("https://duckduckgo.com/");
+      search.searchParams.set("q", value);
+      query.blur();
+      window.location.assign(address ? address.href : search.href);
+    });
+
+    function loadBookmarks() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey));
+        if (Array.isArray(saved)) {
+          return saved.filter((entry) => entry && typeof entry.name === "string"
+            && typeof entry.url === "string" && readWebAddress(entry.url));
+        }
+      } catch (error) {
+        // The homepage still works if storage is empty or unavailable.
+      }
+      return [];
+    }
+
+    let bookmarks = loadBookmarks();
+    const dialog = byId("bookmark-dialog");
+
+    function saveBookmarks(nextBookmarks) {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(nextBookmarks));
+      } catch (error) {
+        return false;
+      }
+      bookmarks = nextBookmarks;
+      renderBookmarks();
+      return true;
+    }
+
+    function renderBookmarks() {
+      const list = byId("bookmarks");
+      list.textContent = "";
+      byId("empty-bookmarks").hidden = bookmarks.length > 0;
+      byId("add-bookmark").hidden = bookmarks.length === 0;
+
+      bookmarks.forEach((entry, index) => {
+        const address = readWebAddress(entry.url);
+        const row = document.createElement("li");
+        row.className = "bookmark";
+
+        const link = document.createElement("a");
+        link.href = address.href;
+        const title = document.createElement("strong");
+        title.textContent = entry.name;
+        const hostname = document.createElement("small");
+        hostname.textContent = address.host;
+        link.append(title, hostname);
+
+        const remove = document.createElement("button");
+        remove.className = "text-button remove";
+        remove.type = "button";
+        remove.setAttribute("aria-label", "移除收藏 " + entry.name);
+        remove.textContent = "×";
+        remove.addEventListener("click", () => {
+          const remaining = bookmarks.filter((_, position) => position !== index);
+          if (!saveBookmarks(remaining)) {
+            byId("status").textContent = "暂时无法移除收藏。";
+            return;
+          }
+
+          byId("status").textContent = "已移除收藏 " + entry.name;
+          const nextButton = list.querySelectorAll("button")[Math.min(index, bookmarks.length - 1)];
+          (nextButton || byId("empty-bookmarks")).focus();
+        });
+
+        row.append(link, remove);
+        list.append(row);
+      });
+    }
+
+    function openBookmarkDialog() {
+      byId("bookmark-form").reset();
+      showError("bookmark-error", "");
+      dialog.showModal();
+      byId("bookmark-url").focus();
+    }
+
+    byId("jump-bookmarks").addEventListener("click", () => byId("bookmarks-title").focus());
+    byId("empty-bookmarks").addEventListener("click", openBookmarkDialog);
+    byId("add-bookmark").addEventListener("click", openBookmarkDialog);
+    byId("cancel-bookmark").addEventListener("click", () => dialog.close());
+    byId("bookmark-url").addEventListener("input", () => showError("bookmark-error", ""));
+    byId("bookmark-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const url = readWebAddress(byId("bookmark-url").value.trim());
+      if (!url) {
+        showError("bookmark-error", "请输入有效的 HTTPS 网址。");
+        return;
+      }
+
+      if (bookmarks.some((entry) => entry.url === url.href)) {
+        showError("bookmark-error", "此网址已收藏。");
+        return;
+      }
+
+      const name = byId("bookmark-name").value.trim() || url.host;
+      if (!saveBookmarks([...bookmarks, { name, url: url.href }])) {
+        showError("bookmark-error", "暂时无法保存收藏。");
+        return;
+      }
+      dialog.close();
+      byId("add-bookmark").focus();
+      byId("status").textContent = "已添加收藏 " + name;
+    });
+
+    const android = /Android/i.test(navigator.userAgent);
+    const storeLink = byId("store-link");
+    storeLink.href = android ? "https://play.google.com/store/apps" : "https://apps.apple.com/";
+    storeLink.setAttribute("aria-label", android ? "打开 Google Play" : "打开 App Store");
+    byId("store-badge").classList.toggle("android", android);
+    storeLink.hidden = false;
+    renderBookmarks();
+  </script>
+</body>
+</html>
